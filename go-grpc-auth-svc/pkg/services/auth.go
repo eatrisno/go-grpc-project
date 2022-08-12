@@ -73,6 +73,10 @@ func (s *Server) Login(ctx context.Context, req *pb.LoginRequest) (*pb.LoginResp
 	}, nil
 }
 
+type BodylinkEmail struct {
+	URL string
+}
+
 func (s *Server) Forgot(ctx context.Context, req *pb.ForgotRequest) (*pb.ForgotResponse, error) {
 	var user models.User
 	if result := s.H.DB.Where(&models.User{Email: req.Email, Status: 1}).First(&user); result.Error != nil {
@@ -82,6 +86,15 @@ func (s *Server) Forgot(ctx context.Context, req *pb.ForgotRequest) (*pb.ForgotR
 		}, nil
 	}
 
+	log.Println("Email sent")
+
+	templateData := BodylinkEmail{
+		URL: "https://web.id/",
+	}
+
+	utils.SendEmailTemplate(req.Email, "Forgot Password", templateData, "templates/email_forgot_password.html")
+
+	log.Println("Email sent")
 	return &pb.ForgotResponse{
 		Status: http.StatusOK,
 		Msg:    "Password reset link sent to your email",
