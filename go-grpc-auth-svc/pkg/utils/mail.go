@@ -2,7 +2,6 @@ package utils
 
 import (
 	"bytes"
-	"fmt"
 	"html/template"
 	"log"
 	"os"
@@ -18,7 +17,6 @@ func SendEmail(to string, subject string, data interface{}, body string) error {
 	m.SetHeader("Subject", subject)
 	m.SetBody("text/html", body)
 	smtpPort, _ := strconv.Atoi(os.Getenv("SMTP_PORT"))
-	fmt.Printf("asd%sasd", os.Getenv("SMTP_PASS"))
 	d := gomail.NewDialer(os.Getenv("SMTP_HOST"), smtpPort, os.Getenv("SMTP_USER"), os.Getenv("SMTP_PASS"))
 	err := d.DialAndSend(m)
 	if err != nil {
