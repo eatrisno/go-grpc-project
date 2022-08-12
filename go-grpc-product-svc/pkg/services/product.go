@@ -57,6 +57,39 @@ func (s *Server) FindOne(ctx context.Context, req *pb.FindOneRequest) (*pb.FindO
 	}, nil
 }
 
+func (s *Server) ListProduct(ctx context.Context, req *pb.ListProductRequest) (*pb.ListProductResponse, error) {
+	var products []models.Product
+	listProductData := []*pb.ListProductData{}
+
+	offset := (req.Page - 1) * req.Limit
+	result := s.H.DB.Limit(int(req.Limit)).Offset(int(offset)).Find(&products)
+
+	if result.Error != nil {
+		return &pb.ListProductResponse{
+			Status: http.StatusNotFound,
+			Error:  result.Error.Error(),
+		}, nil
+	}
+
+	for i := range products {
+		listProductData = append(listProductData, &pb.ListProductData{
+			Id:    products[i].Id,
+			Name:  products[i].Name,
+			Stock: products[i].Stock,
+			Price: products[i].Price,
+		})
+
+	}
+
+	// fmt.Println(result.TotalRecordCount())
+	return &pb.ListProductResponse{
+		Status:     http.StatusOK,
+		Error:      "",
+		Data:       listProductData,
+		TotalPages: 1,
+	}, nil
+}
+
 func (s *Server) DecreaseStock(ctx context.Context, req *pb.DecreaseStockRequest) (*pb.DecreaseStockResponse, error) {
 	var product models.Product
 

@@ -8,6 +8,31 @@ service ProductService {
   rpc CreateProduct(CreateProductRequest) returns (CreateProductResponse) {}
   rpc FindOne(FindOneRequest) returns (FindOneResponse) {}
   rpc DecreaseStock(DecreaseStockRequest) returns (DecreaseStockResponse) {}
+  rpc ListProduct(ListProductRequest) returns (ListProductResponse) {}
+}
+
+// ListProductRequest is the request for the ListProduct method.
+
+message ListProductRequest {
+  int32 page = 1;
+  int32 limit = 2;
+  string sort = 3;
+}
+
+message ListProductData {
+  int64 id = 1;
+  string name = 2;
+  int64 stock = 3;
+  int64 price = 4;
+}
+
+// ListProductResponse is the response for the ListProduct method.
+
+message ListProductResponse {
+  int64 status = 1;
+  string error = 2;
+  repeated ListProductData data = 3;
+  int32 total_pages = 4;
 }
 
 // CreateProduct
