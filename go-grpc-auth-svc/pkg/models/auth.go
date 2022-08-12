@@ -11,8 +11,3 @@ type User struct {
 	LastLoginAt time.Time `json:"last_login"`
 	Status      int8      `json:"status"`
 }
-
-type UserLogin struct {
-	Email       string    `json:"email"`
-	LastLoginAt time.Time `json:"last_login"`
-}

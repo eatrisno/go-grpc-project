@@ -48,7 +48,7 @@ func (s *Server) Login(ctx context.Context, req *pb.LoginRequest) (*pb.LoginResp
 	if result := s.H.DB.Where(&models.User{Email: req.Email, Status: 1}).First(&user); result.Error != nil {
 		return &pb.LoginResponse{
 			Status: http.StatusNotFound,
-			Error:  "User nasme not found or incorrect password.",
+			Error:  "User name not found or incorrect password.",
 		}, nil
 	}
 
@@ -70,6 +70,21 @@ func (s *Server) Login(ctx context.Context, req *pb.LoginRequest) (*pb.LoginResp
 	return &pb.LoginResponse{
 		Status: http.StatusOK,
 		Token:  token,
+	}, nil
+}
+
+func (s *Server) Forgot(ctx context.Context, req *pb.ForgotRequest) (*pb.ForgotResponse, error) {
+	var user models.User
+	if result := s.H.DB.Where(&models.User{Email: req.Email, Status: 1}).First(&user); result.Error != nil {
+		return &pb.ForgotResponse{
+			Status: http.StatusNotFound,
+			Msg:    "User name not found ",
+		}, nil
+	}
+
+	return &pb.ForgotResponse{
+		Status: http.StatusOK,
+		Msg:    "Password reset link sent to your email",
 	}, nil
 }
 

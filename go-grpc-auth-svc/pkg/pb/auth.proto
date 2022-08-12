@@ -36,6 +36,17 @@ message LoginResponse {
     string token = 3;
 }
 
+// Forgot
+
+message ForgotRequest {
+  string email = 1;
+}
+
+message ForgotResponse {
+  int64 status = 1;
+  string msg = 2;
+}
+
 // Validate
 
 message ValidateRequest { string token = 2; }

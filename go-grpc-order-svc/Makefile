@@ -6,3 +6,10 @@ server:
 
 build:
 	go build -o bin/app ./cmd
+
+run:
+	./bin/app
+	
+develop:
+	make proto
+	make server

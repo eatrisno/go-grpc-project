@@ -12,6 +12,7 @@ func RegisterRoutes(r *gin.Engine) *ServiceClient {
 
 	routes := r.Group("/auth")
 	routes.POST("/register", svc.Register)
+	routes.POST("/forgot-password", svc.Forgot)
 	routes.POST("/login", svc.Login)
 
 	return svc
@@ -23,4 +24,8 @@ func (svc *ServiceClient) Register(ctx *gin.Context) {
 
 func (svc *ServiceClient) Login(ctx *gin.Context) {
 	routes.Login(ctx, svc.Client)
+}
+
+func (svc *ServiceClient) Forgot(ctx *gin.Context) {
+	routes.Forgot(ctx, svc.Client)
 }
