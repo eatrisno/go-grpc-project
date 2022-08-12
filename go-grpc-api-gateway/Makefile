@@ -11,13 +11,13 @@ run:
 	./bin/app
 
 build:
-	make tidy
 	make proto
+	make tidy
 	go build -o ./bin/app ./cmd
 
 develop:
-	make tidy
 	make proto
+	make tidy
 	make server
 
 serve:

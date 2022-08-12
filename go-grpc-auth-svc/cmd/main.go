@@ -25,7 +25,7 @@ func main() {
 	jwt := utils.JwtWrapper{
 		SecretKey:       os.Getenv("JWT_SECRET_KEY"),
 		Issuer:          "go-grpc-auth-svc",
-		ExpirationHours: 24 * 365,
+		ExpirationHours: 24 * 30,
 	}
 
 	lis, err := net.Listen("tcp", os.Getenv("PORT"))

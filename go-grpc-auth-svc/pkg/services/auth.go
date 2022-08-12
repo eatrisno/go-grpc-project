@@ -95,7 +95,6 @@ func (s *Server) Forgot(ctx context.Context, req *pb.ForgotRequest) (*pb.ForgotR
 
 func (s *Server) Validate(ctx context.Context, req *pb.ValidateRequest) (*pb.ValidateResponse, error) {
 	claims, err := s.Jwt.ValidateToken(req.Token)
-
 	if err != nil {
 		return &pb.ValidateResponse{
 			Status: http.StatusBadRequest,

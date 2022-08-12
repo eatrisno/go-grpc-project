@@ -50,7 +50,9 @@ message ForgotResponse {
 
 // Validate
 
-message ValidateRequest { string token = 2; }
+message ValidateRequest { 
+    string token = 1; 
+}
 
 message ValidateResponse {
     int64 status = 1;
