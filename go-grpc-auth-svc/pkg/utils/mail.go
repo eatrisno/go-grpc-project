@@ -2,23 +2,27 @@ package utils
 
 import (
 	"bytes"
+	"fmt"
 	"html/template"
 	"log"
+	"os"
+	"strconv"
 
 	"gopkg.in/gomail.v2"
 )
 
 func SendEmail(to string, subject string, data interface{}, body string) error {
 	m := gomail.NewMessage()
-	m.SetHeader("From", "eaprilitrisno@gmail.com")
+	m.SetHeader("From", os.Getenv("EMAIL_FROM"))
 	m.SetHeader("To", to)
 	m.SetHeader("Subject", subject)
 	m.SetBody("text/html", body)
-	senderPort := 587
-	d := gomail.NewDialer("smtp.gmail.com", senderPort, "eaprilitrisno@gmail.com", "nenapuvmeovtgrvx")
+	smtpPort, _ := strconv.Atoi(os.Getenv("SMTP_PORT"))
+	fmt.Printf("asd%sasd", os.Getenv("SMTP_PASS"))
+	d := gomail.NewDialer(os.Getenv("SMTP_HOST"), smtpPort, os.Getenv("SMTP_USER"), os.Getenv("SMTP_PASS"))
 	err := d.DialAndSend(m)
 	if err != nil {
-		panic(err)
+		log.Println(err)
 	}
 	return err
 }
@@ -41,8 +45,8 @@ func SendEmailTemplate(to string, subject string, data interface{}, template str
 	body, _ := ParseTemplate(template, data)
 	err = SendEmail(to, subject, data, body)
 	if err == nil {
-		log.Println("send email '" + subject + "' success")
+		log.Printf("send email %s to %s to success", subject, to)
 	} else {
-		log.Println(err)
+		log.Printf("send email %s to %s to failed: %s", subject, to, err)
 	}
 }

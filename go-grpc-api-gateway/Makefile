@@ -1,5 +1,5 @@
 proto:
-	protoc --go_out=. --go-grpc_out=. pkg/pb/*.proto
+	protoc --go_out=. --go-grpc_out=. pkg/*/pb/*.proto
 
 server:
 	go run cmd/main.go
@@ -19,3 +19,10 @@ develop:
 	make tidy
 	make proto
 	make server
+
+serve:
+	make clean
+	air
+
+clean:
+	rm -rf ./bin

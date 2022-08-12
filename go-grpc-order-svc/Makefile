@@ -19,3 +19,10 @@ develop:
 	make tidy
 	make proto
 	make server
+
+serve:
+	make clean
+	air
+
+clean:
+	rm -rf ./bin

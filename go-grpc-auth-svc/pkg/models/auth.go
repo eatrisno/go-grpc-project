@@ -11,3 +11,7 @@ type User struct {
 	LastLoginAt time.Time `json:"last_login"`
 	Status      int8      `json:"status"`
 }
+
+type BodylinkEmail struct {
+	URL string
+}
