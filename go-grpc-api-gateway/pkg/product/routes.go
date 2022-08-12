@@ -17,6 +17,7 @@ func RegisterRoutes(r *gin.Engine, authSvc *auth.ServiceClient) {
 	routes.Use(a.AuthRequired)
 	routes.POST("/", svc.CreateProduct)
 	routes.GET("/:id", svc.FindOne)
+	routes.GET("/list", svc.ListProduct)
 }
 
 func (svc *ServiceClient) FindOne(ctx *gin.Context) {
@@ -25,4 +26,8 @@ func (svc *ServiceClient) FindOne(ctx *gin.Context) {
 
 func (svc *ServiceClient) CreateProduct(ctx *gin.Context) {
 	routes.CreateProduct(ctx, svc.Client)
+}
+
+func (svc *ServiceClient) ListProduct(ctx *gin.Context) {
+	routes.ListProduct(ctx, svc.Client)
 }
