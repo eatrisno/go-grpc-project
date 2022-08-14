@@ -62,8 +62,20 @@ func (s *Server) ListProduct(ctx context.Context, req *pb.ListProductRequest) (*
 	var products []models.Product
 	listProductData := []*pb.ListProductData{}
 
-	offset := (req.Page - 1) * req.Limit
-	result := s.H.DB.Limit(int(req.Limit)).Offset(int(offset)).Find(&products)
+	limit := req.Limit
+	page := req.Page
+	switch {
+	case limit > 50:
+		limit = 50
+	case limit < 0:
+		limit = 10
+	}
+	if page == 0 {
+		page = 1
+	}
+
+	offset := (page - 1) * limit
+	result := s.H.DB.Limit(int(limit)).Offset(int(offset)).Find(&products)
 
 	if result.Error != nil {
 		return &pb.ListProductResponse{
@@ -74,7 +86,7 @@ func (s *Server) ListProduct(ctx context.Context, req *pb.ListProductRequest) (*
 
 	var totalRows int64
 	result1 := s.H.DB.Model(products).Count(&totalRows)
-	totalPages := int32(math.Ceil(float64(totalRows) / float64(req.Limit)))
+	totalPages := int32(math.Ceil(float64(totalRows) / float64(limit)))
 
 	if result1.Error != nil {
 		return &pb.ListProductResponse{
