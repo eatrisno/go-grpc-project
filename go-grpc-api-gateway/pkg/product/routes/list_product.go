@@ -15,7 +15,7 @@ func ListProduct(ctx *gin.Context, c pb.ProductServiceClient) {
 	switch {
 	case limit > 50:
 		limit = 50
-	case limit < 10:
+	case limit < 0:
 		limit = 10
 	}
 	page, _ := strconv.Atoi(ctx.Query("page"))

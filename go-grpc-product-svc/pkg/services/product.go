@@ -2,6 +2,7 @@ package services
 
 import (
 	"context"
+	"math"
 	"net/http"
 
 	"github.com/eatrisno/go-grpc-product-svc/pkg/db"
@@ -71,6 +72,17 @@ func (s *Server) ListProduct(ctx context.Context, req *pb.ListProductRequest) (*
 		}, nil
 	}
 
+	var totalRows int64
+	result1 := s.H.DB.Model(products).Count(&totalRows)
+	totalPages := int32(math.Ceil(float64(totalRows) / float64(req.Limit)))
+
+	if result1.Error != nil {
+		return &pb.ListProductResponse{
+			Status: http.StatusNotFound,
+			Error:  result1.Error.Error(),
+		}, nil
+	}
+
 	for i := range products {
 		listProductData = append(listProductData, &pb.ListProductData{
 			Id:    products[i].Id,
@@ -78,15 +90,13 @@ func (s *Server) ListProduct(ctx context.Context, req *pb.ListProductRequest) (*
 			Stock: products[i].Stock,
 			Price: products[i].Price,
 		})
-
 	}
 
-	// fmt.Println(result.TotalRecordCount())
 	return &pb.ListProductResponse{
 		Status:     http.StatusOK,
 		Error:      "",
 		Data:       listProductData,
-		TotalPages: 1,
+		TotalPages: totalPages,
 	}, nil
 }
 
