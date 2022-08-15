@@ -3,7 +3,6 @@ module github.com/eatrisno/go-grpc-product-svc
 go 1.18
 
 require (
-	github.com/hellokvn/go-grpc-product-svc v0.0.0-20220330133446-4976c62ff58c
 	github.com/joho/godotenv v1.4.0
 	github.com/spf13/viper v1.12.0
 	google.golang.org/grpc v1.48.0

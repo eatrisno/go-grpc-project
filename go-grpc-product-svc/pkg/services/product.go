@@ -16,11 +16,12 @@ type Server struct {
 }
 
 func (s *Server) CreateProduct(ctx context.Context, req *pb.CreateProductRequest) (*pb.CreateProductResponse, error) {
-	var product models.Product
 
-	product.Name = req.Name
-	product.Stock = req.Stock
-	product.Price = req.Price
+	product := models.Product{
+		Name:  req.Name,
+		Stock: req.Stock,
+		Price: req.Price,
+	}
 
 	if result := s.H.DB.Create(&product); result.Error != nil {
 		return &pb.CreateProductResponse{
@@ -75,7 +76,7 @@ func (s *Server) ListProduct(ctx context.Context, req *pb.ListProductRequest) (*
 	}
 
 	offset := (page - 1) * limit
-	result := s.H.DB.Limit(int(limit)).Offset(int(offset)).Find(&products)
+	result := s.H.DB.Limit(int(limit)).Offset(int(offset)).Order("id").Find(&products)
 
 	if result.Error != nil {
 		return &pb.ListProductResponse{

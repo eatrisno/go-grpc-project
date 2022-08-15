@@ -29,11 +29,10 @@ func (s *Server) Register(ctx context.Context, req *pb.RegisterRequest) (*pb.Reg
 	}
 
 	user = models.User{
-		Name:      req.Name,
-		Email:     req.Email,
-		Password:  utils.HashPassword(req.Password),
-		CreatedAt: time.Now(),
-		Status:    int8(1), // 1 = active
+		Name:     req.Name,
+		Email:    req.Email,
+		Password: utils.HashPassword(req.Password),
+		Status:   int(1),
 	}
 
 	s.H.DB.Create(&user)

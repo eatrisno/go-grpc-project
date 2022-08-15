@@ -9,7 +9,7 @@ type User struct {
 	Password    string    `json:"password"`
 	CreatedAt   time.Time `json:"created_at"`
 	LastLoginAt time.Time `json:"last_login"`
-	Status      int8      `json:"status"`
+	Status      int       `json:"status"`
 }
 
 type BodylinkEmail struct {
