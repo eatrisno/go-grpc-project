@@ -4,30 +4,29 @@ import (
 	"fmt"
 	"log"
 	"net"
-	"os"
 
 	"github.com/eatrisno/go-grpc-product-svc/pkg/db"
 	"github.com/eatrisno/go-grpc-product-svc/pkg/pb"
 	"github.com/eatrisno/go-grpc-product-svc/pkg/services"
-	"github.com/joho/godotenv"
+	"github.com/eatrisno/go-grpc-product-svc/pkg/utils"
 	"google.golang.org/grpc"
 )
 
 func main() {
-	err := godotenv.Load(".env")
+	config, err := utils.LoadConfig(".")
 	if err != nil {
-		log.Fatalf("Some error occured. Err: %s", err)
+		log.Fatal("cannot load config:", err)
 	}
 
-	h := db.Init(os.Getenv("DB_URL"))
+	h := db.Init(config.DBUrl)
 
-	lis, err := net.Listen("tcp", os.Getenv("PORT"))
+	lis, err := net.Listen("tcp", config.Port)
 
 	if err != nil {
 		log.Fatalln("Failed to listing:", err)
 	}
 
-	fmt.Println("Product Svc on", os.Getenv("PORT"))
+	fmt.Println("Product Svc on", config.Port)
 
 	s := services.Server{
 		H: h,

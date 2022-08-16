@@ -4,37 +4,36 @@ import (
 	"fmt"
 	"log"
 	"net"
-	"os"
 
 	"github.com/eatrisno/go-grpc-order-svc/pkg/client"
 	"github.com/eatrisno/go-grpc-order-svc/pkg/db"
 	"github.com/eatrisno/go-grpc-order-svc/pkg/pb"
 	"github.com/eatrisno/go-grpc-order-svc/pkg/services"
-	"github.com/joho/godotenv"
+	"github.com/eatrisno/go-grpc-order-svc/pkg/utils"
 	"google.golang.org/grpc"
 )
 
 func main() {
-	err := godotenv.Load(".env")
+	config, err := utils.LoadConfig(".")
 	if err != nil {
-		log.Fatalf("Some error occured. Err: %s", err)
+		log.Fatal("cannot load config:", err)
 	}
 
-	h := db.Init(os.Getenv("DB_URL"))
+	h := db.Init(config.DBUrl)
 
-	lis, err := net.Listen("tcp", os.Getenv("PORT"))
-
-	if err != nil {
-		log.Fatalln("Failed to listing:", err)
-	}
-
-	productSvc := client.InitProductServiceClient(os.Getenv("PRODUCT_SVC_URL"))
+	lis, err := net.Listen("tcp", config.Port)
 
 	if err != nil {
 		log.Fatalln("Failed to listing:", err)
 	}
 
-	fmt.Println("Order Svc on", os.Getenv("PORT"))
+	productSvc := client.InitProductServiceClient(config.ProductServiceUrl)
+
+	if err != nil {
+		log.Fatalln("Failed to listing:", err)
+	}
+
+	fmt.Println("Order Svc on", config.Port)
 
 	s := services.Server{
 		H:          h,

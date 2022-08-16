@@ -65,14 +65,30 @@ func (s *Server) ListProduct(ctx context.Context, req *pb.ListProductRequest) (*
 
 	limit := req.Limit
 	page := req.Page
+
 	switch {
+	case limit < 1:
+		limit = 5
 	case limit > 50:
 		limit = 50
-	case limit < 0:
-		limit = 10
 	}
-	if page == 0 {
+
+	var totalRows int64
+	resultTotalRow := s.H.DB.Model(products).Count(&totalRows)
+	totalPages := int32(math.Ceil(float64(totalRows) / float64(limit)))
+
+	if resultTotalRow.Error != nil {
+		return &pb.ListProductResponse{
+			Status: http.StatusNotFound,
+			Error:  resultTotalRow.Error.Error(),
+		}, nil
+	}
+
+	switch {
+	case page < 1:
 		page = 1
+	case page > totalPages:
+		page = totalPages
 	}
 
 	offset := (page - 1) * limit
@@ -82,17 +98,6 @@ func (s *Server) ListProduct(ctx context.Context, req *pb.ListProductRequest) (*
 		return &pb.ListProductResponse{
 			Status: http.StatusNotFound,
 			Error:  result.Error.Error(),
-		}, nil
-	}
-
-	var totalRows int64
-	result1 := s.H.DB.Model(products).Count(&totalRows)
-	totalPages := int32(math.Ceil(float64(totalRows) / float64(limit)))
-
-	if result1.Error != nil {
-		return &pb.ListProductResponse{
-			Status: http.StatusNotFound,
-			Error:  result1.Error.Error(),
 		}, nil
 	}
 

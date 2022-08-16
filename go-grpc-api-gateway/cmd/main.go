@@ -2,26 +2,25 @@ package main
 
 import (
 	"log"
-	"os"
 
 	"github.com/eatrisno/go-grpc-api-gateway/pkg/auth"
 	"github.com/eatrisno/go-grpc-api-gateway/pkg/order"
 	"github.com/eatrisno/go-grpc-api-gateway/pkg/product"
+	"github.com/eatrisno/go-grpc-api-gateway/pkg/utils"
 	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
 )
 
 func main() {
-	err := godotenv.Load()
+	c, err := utils.LoadConfig(".")
 	if err != nil {
-		log.Fatalf("Some error occured. Err: %s", err)
+		log.Fatal("cannot load config:", err)
 	}
 
 	r := gin.Default()
 
-	authSvc := *auth.RegisterRoutes(r)
-	product.RegisterRoutes(r, &authSvc)
-	order.RegisterRoutes(r, &authSvc)
+	authSvc := *auth.RegisterRoutes(r, &c)
+	product.RegisterRoutes(r, &c, &authSvc)
+	order.RegisterRoutes(r, &c, &authSvc)
 
-	r.Run(os.Getenv("PORT"))
+	r.Run(c.Port)
 }

@@ -3,14 +3,15 @@ package product
 import (
 	"github.com/eatrisno/go-grpc-api-gateway/pkg/auth"
 	"github.com/eatrisno/go-grpc-api-gateway/pkg/product/routes"
+	"github.com/eatrisno/go-grpc-api-gateway/pkg/utils"
 	"github.com/gin-gonic/gin"
 )
 
-func RegisterRoutes(r *gin.Engine, authSvc *auth.ServiceClient) {
+func RegisterRoutes(r *gin.Engine, c *utils.Config, authSvc *auth.ServiceClient) {
 	a := auth.InitAuthMiddleware(authSvc)
 
 	svc := &ServiceClient{
-		Client: InitServiceClient(),
+		Client: InitServiceClient(c),
 	}
 
 	routes := r.Group("/product")

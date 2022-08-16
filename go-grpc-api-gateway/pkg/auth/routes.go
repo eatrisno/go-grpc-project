@@ -2,12 +2,13 @@ package auth
 
 import (
 	"github.com/eatrisno/go-grpc-api-gateway/pkg/auth/routes"
+	"github.com/eatrisno/go-grpc-api-gateway/pkg/utils"
 	"github.com/gin-gonic/gin"
 )
 
-func RegisterRoutes(r *gin.Engine) *ServiceClient {
+func RegisterRoutes(r *gin.Engine, c *utils.Config) *ServiceClient {
 	svc := &ServiceClient{
-		Client: InitServiceClient(),
+		Client: InitServiceClient(c),
 	}
 
 	routes := r.Group("/auth")

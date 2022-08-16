@@ -1,4 +1,4 @@
-package db
+package utils
 
 import (
 	"log"
@@ -8,11 +8,11 @@ import (
 	"gorm.io/gorm"
 )
 
-type Handler struct {
+type DBHandler struct {
 	DB *gorm.DB
 }
 
-func Init(url string) Handler {
+func DBInit(url string) DBHandler {
 	db, err := gorm.Open(postgres.Open(url), &gorm.Config{})
 
 	if err != nil {
@@ -21,5 +21,5 @@ func Init(url string) Handler {
 
 	db.AutoMigrate(&models.User{})
 
-	return Handler{db}
+	return DBHandler{db}
 }

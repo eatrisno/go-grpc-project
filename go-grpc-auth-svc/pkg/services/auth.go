@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/eatrisno/go-grpc-auth-svc/pkg/db"
 	"github.com/eatrisno/go-grpc-auth-svc/pkg/models"
 	"github.com/eatrisno/go-grpc-auth-svc/pkg/pb"
 	"github.com/eatrisno/go-grpc-auth-svc/pkg/utils"
@@ -14,7 +13,7 @@ import (
 
 type Server struct {
 	pb.UnimplementedAuthServiceServer
-	H   db.Handler
+	H   utils.DBHandler
 	Jwt utils.JwtWrapper
 }
 
