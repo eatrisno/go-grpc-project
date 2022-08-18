@@ -7,7 +7,7 @@ import (
 
 	"github.com/eatrisno/go-grpc-product-svc/pkg/db"
 	"github.com/eatrisno/go-grpc-product-svc/pkg/models"
-	pb "github.com/eatrisno/go-grpc-product-svc/pkg/pb"
+	"github.com/eatrisno/go-grpc-product-svc/pkg/pb"
 )
 
 type Server struct {
