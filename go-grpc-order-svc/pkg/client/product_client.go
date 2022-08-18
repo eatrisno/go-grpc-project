@@ -6,6 +6,7 @@ import (
 
 	"github.com/eatrisno/go-grpc-order-svc/pkg/pb"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 )
 
 type ProductServiceClient struct {
@@ -13,7 +14,7 @@ type ProductServiceClient struct {
 }
 
 func InitProductServiceClient(url string) ProductServiceClient {
-	cc, err := grpc.Dial(url, grpc.WithInsecure())
+	cc, err := grpc.Dial(url, grpc.WithTransportCredentials(insecure.NewCredentials()))
 
 	if err != nil {
 		fmt.Println("Could not connect:", err)

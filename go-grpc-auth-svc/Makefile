@@ -15,6 +15,9 @@ build:
 	make tidy
 	go build -o ./bin/app ./cmd
 
+init:
+	mkdir -p ~/go/src/github.com/eatrisno
+	ln -sf `pwd` ~/go/src/github.com/eatrisno/go-grpc-auth-svc
 develop:
 	make proto
 	make tidy

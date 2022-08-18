@@ -1,3 +1,5 @@
 */bin
 *.pb.go
 */.env
+pkg
+.vscode
