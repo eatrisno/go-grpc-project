@@ -8,12 +8,12 @@ tidy:
 	go mod tidy
 
 run: 
-	./bin/app
+	./bin/api-gateway
 
 build:
 	make proto
 	make tidy
-	go build -o ./bin/app ./cmd
+	go build -o ./bin/api-gateway ./cmd
 
 develop:
 	make proto

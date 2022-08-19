@@ -8,12 +8,12 @@ tidy:
 	go mod tidy
 
 run: 
-	./bin/app
+	./bin/auth-svc
 
 build:
 	make proto
 	make tidy
-	go build -o ./bin/app ./cmd
+	go build -o ./bin/auth-svc ./cmd
 
 init:
 	mkdir -p ~/go/src/github.com/eatrisno

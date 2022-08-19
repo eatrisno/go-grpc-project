@@ -8,12 +8,12 @@ tidy:
 	go mod tidy
 
 run: 
-	./bin/app
+	./bin/order-svc
 
 build:
 	make proto
 	make tidy
-	go build -o ./bin/app ./cmd
+	go build -o ./bin/order-svc ./cmd
 
 develop:
 	make proto

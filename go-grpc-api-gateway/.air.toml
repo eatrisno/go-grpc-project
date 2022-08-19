@@ -4,7 +4,7 @@ tmp_dir = "bin"
 
 [build]
   args_bin = []
-  bin = "./bin/app"
+  bin = "./bin/api-gateway"
   cmd = "make build"
   delay = 1000
   exclude_dir = ["assets", "tmp", "bin", "testdata"]

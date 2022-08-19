@@ -7,13 +7,13 @@ server:
 tidy:
 	go mod tidy
 
-run: 
-	./bin/app
+run:
+	./bin/product-svc
 
 build:
 	make proto
 	make tidy
-	go build -o ./bin/app ./cmd
+	go build -o ./bin/product-svc ./cmd
 
 develop:
 	make proto
