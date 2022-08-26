@@ -63,6 +63,7 @@ func (s *Server) Login(ctx context.Context, req *pb.LoginRequest) (*pb.LoginResp
 
 	if result := s.H.DB.Model(&user).Updates(models.User{LastLoginAt: time.Now()}); result.Error != nil {
 		log.Println(result.Error)
+		log.Println("Failed to update last login at")
 	}
 
 	return &pb.LoginResponse{
