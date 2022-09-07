@@ -358,12 +358,12 @@ const docTemplate = `{
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "3.0",
+	Version:          "1.0",
 	Host:             "localhost:3000",
 	BasePath:         "/v1",
 	Schemes:          []string{},
 	Title:            "Go GRPC Project",
-	Description:      "This is a sample server todo server. You can visit the GitHub repository at https://github.com/LordGhostX/swag-gin-demo",
+	Description:      "This is a go grpc project.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 }

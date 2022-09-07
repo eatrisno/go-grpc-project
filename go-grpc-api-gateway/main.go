@@ -15,8 +15,8 @@ import (
 )
 
 // @title Go GRPC Project
-// @version 3.0
-// @description This is a sample server todo server. You can visit the GitHub repository at https://github.com/LordGhostX/swag-gin-demo
+// @version 1.0
+// @description This is a go grpc project.
 
 // @contact.name API Support
 // @contact.url http://www.swagger.io/support
