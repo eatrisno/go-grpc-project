@@ -1,0 +1,101 @@
+basePath: /
+definitions:
+  routes.CreateOrderRequestBody:
+    properties:
+      productId:
+        type: integer
+      quantity:
+        type: integer
+    type: object
+  routes.LoginRequestBody:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  routes.RegisterRequestBody:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    type: object
+host: localhost:3000
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server todo server. You can visit the GitHub repository
+    at https://github.com/LordGhostX/swag-gin-demo
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  title: Go GRPC Project
+  version: "3.0"
+paths:
+  /auth/login:
+    post:
+      operationId: login
+      parameters:
+      - description: The body to create a thing
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/routes.LoginRequestBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.LoginRequestBody'
+      summary: login
+  /auth/register:
+    post:
+      operationId: register
+      parameters:
+      - description: The body to create a thing
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/routes.RegisterRequestBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.RegisterRequestBody'
+      summary: Register
+  /order:
+    post:
+      operationId: order
+      parameters:
+      - description: The body to create a thing
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/routes.CreateOrderRequestBody'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/routes.CreateOrderRequestBody'
+      security:
+      - ApiKeyAuth: []
+      summary: order
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

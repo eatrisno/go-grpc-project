@@ -13,6 +13,12 @@ type LoginRequestBody struct {
 	Password string `json:"password"`
 }
 
+// @Summary login
+// @ID login
+// @Produce json
+// @Success 200 {object} LoginRequestBody
+// @Router /auth/login [post]
+// @Param Body body LoginRequestBody true "The body to create a thing"
 func Login(ctx *gin.Context, c pb.AuthServiceClient) {
 	b := LoginRequestBody{}
 

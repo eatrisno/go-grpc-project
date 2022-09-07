@@ -14,6 +14,12 @@ type RegisterRequestBody struct {
 	Password string `json:"password"`
 }
 
+// @Summary Register
+// @ID register
+// @Produce json
+// @Success 200 {object} RegisterRequestBody
+// @Router /auth/register [post]
+// @Param Body body RegisterRequestBody true "The body to create a thing"
 func Register(ctx *gin.Context, c pb.AuthServiceClient) {
 	body := RegisterRequestBody{}
 
