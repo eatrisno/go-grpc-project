@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func RegisterRoutes(r *gin.Engine, c *utils.Config, authSvc *auth.ServiceClient) {
+func RegisterRoutes(r *gin.RouterGroup, c *utils.Config, authSvc *auth.ServiceClient) {
 	a := auth.InitAuthMiddleware(authSvc)
 
 	svc := &ServiceClient{

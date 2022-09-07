@@ -35,14 +35,14 @@ import (
 func main() {
 	c, err := utils.LoadConfig(".")
 	if err != nil {
-		log.Fatal("cannot load config:", err)
+		log.Println("cannot load config:", err)
 	}
 
 	r := gin.Default()
-
-	authSvc := *auth.RegisterRoutes(r, &c)
-	product.RegisterRoutes(r, &c, &authSvc)
-	order.RegisterRoutes(r, &c, &authSvc)
+	v1 := r.Group("v1")
+	authSvc := *auth.RegisterRoutes(v1, &c)
+	product.RegisterRoutes(v1, &c, &authSvc)
+	order.RegisterRoutes(v1, &c, &authSvc)
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 

@@ -15,7 +15,7 @@ import (
 func main() {
 	config, err := utils.LoadConfig(".")
 	if err != nil {
-		log.Fatal("cannot load config:", err)
+		log.Println("cannot load config:", err)
 	}
 
 	h := db.Init(config.DBUrl)

@@ -2,7 +2,7 @@ proto:
 	protoc --go_out=. --go-grpc_out=. pkg/pb/*.proto
 
 server:
-	go run cmd/main.go
+	go run main.go
 	
 tidy:
 	go mod tidy
@@ -13,7 +13,7 @@ run:
 build:
 	make proto
 	make tidy
-	go build -o ./bin/product-svc ./cmd
+	go build -o ./bin/product-svc
 
 develop:
 	make proto
