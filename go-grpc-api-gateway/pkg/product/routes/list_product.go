@@ -9,6 +9,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// @Summary ListProduct
+// @ID ListProduct
+// @Produce json
+// @Success 200 {object} pb.ListProductResponse
+// @Router /product/list [get]
+// @Security ApiKeyAuth
 func ListProduct(ctx *gin.Context, c pb.ProductServiceClient) {
 	limit, _ := strconv.Atoi(ctx.Query("limit"))
 	page, _ := strconv.Atoi(ctx.Query("page"))

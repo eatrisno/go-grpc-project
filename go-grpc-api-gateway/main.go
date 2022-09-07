@@ -30,7 +30,7 @@ import (
 // @name Authorization
 
 // @host localhost:3000
-// @BasePath /
+// @BasePath /v1
 // @query.collection.format multi
 func main() {
 	c, err := utils.LoadConfig(".")

@@ -9,7 +9,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func FineOne(ctx *gin.Context, c pb.ProductServiceClient) {
+// @Summary FindProduct
+// @ID FindProduct
+// @Produce json
+// @Success 200 {object} pb.FindOneResponse
+// @Router /product/:id [get]
+// @Param Body body pb.FindOneRequest true "The body to create a thing"
+// @Security ApiKeyAuth
+func FindOne(ctx *gin.Context, c pb.ProductServiceClient) {
 	id, _ := strconv.ParseInt(ctx.Param("id"), 10, 32)
 
 	res, err := c.FindOne(context.Background(), &pb.FindOneRequest{

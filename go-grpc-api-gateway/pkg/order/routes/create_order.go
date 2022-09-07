@@ -13,8 +13,8 @@ type CreateOrderRequestBody struct {
 	Quantity  int64 `json:"quantity"`
 }
 
-// @Summary order
-// @ID order
+// @Summary CreateOrder
+// @ID CreateOrder
 // @Produce json
 // @Success 200 {object} CreateOrderRequestBody
 // @Router /order [post]

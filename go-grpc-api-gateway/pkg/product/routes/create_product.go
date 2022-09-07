@@ -8,6 +8,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// @Summary CreateProduct
+// @ID CreateProduct
+// @Produce json
+// @Success 200 {object} pb.CreateProductResponse
+// @Router /product [post]
+// @Param Body body pb.CreateProductRequest true "The body to create a thing"
+// @Security ApiKeyAuth
 func CreateProduct(ctx *gin.Context, c pb.ProductServiceClient) {
 	var body pb.CreateProductRequest
 

@@ -1,5 +1,74 @@
-basePath: /
+basePath: /v1
 definitions:
+  pb.CreateProductRequest:
+    properties:
+      name:
+        type: string
+      price:
+        type: integer
+      stock:
+        type: integer
+    type: object
+  pb.CreateProductResponse:
+    properties:
+      error:
+        type: string
+      id:
+        type: integer
+      status:
+        type: integer
+    type: object
+  pb.FindOneData:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      price:
+        type: integer
+      sku:
+        type: string
+      stock:
+        type: integer
+    type: object
+  pb.FindOneRequest:
+    properties:
+      id:
+        type: integer
+    type: object
+  pb.FindOneResponse:
+    properties:
+      data:
+        $ref: '#/definitions/pb.FindOneData'
+      error:
+        type: string
+      status:
+        type: integer
+    type: object
+  pb.ListProductData:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      price:
+        type: integer
+      stock:
+        type: integer
+    type: object
+  pb.ListProductResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/pb.ListProductData'
+        type: array
+      error:
+        type: string
+      status:
+        type: integer
+      total_pages:
+        type: integer
+    type: object
   routes.CreateOrderRequestBody:
     properties:
       productId:
@@ -75,7 +144,7 @@ paths:
       summary: Register
   /order:
     post:
-      operationId: order
+      operationId: CreateOrder
       parameters:
       - description: The body to create a thing
         in: body
@@ -92,7 +161,60 @@ paths:
             $ref: '#/definitions/routes.CreateOrderRequestBody'
       security:
       - ApiKeyAuth: []
-      summary: order
+      summary: CreateOrder
+  /product:
+    post:
+      operationId: CreateProduct
+      parameters:
+      - description: The body to create a thing
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/pb.CreateProductRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/pb.CreateProductResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: CreateProduct
+  /product/:id:
+    get:
+      operationId: FindProduct
+      parameters:
+      - description: The body to create a thing
+        in: body
+        name: Body
+        required: true
+        schema:
+          $ref: '#/definitions/pb.FindOneRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/pb.FindOneResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: FindProduct
+  /product/list:
+    get:
+      operationId: ListProduct
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/pb.ListProductResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: ListProduct
 securityDefinitions:
   ApiKeyAuth:
     in: header

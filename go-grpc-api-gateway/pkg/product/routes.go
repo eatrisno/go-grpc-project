@@ -22,7 +22,7 @@ func RegisterRoutes(r *gin.RouterGroup, c *utils.Config, authSvc *auth.ServiceCl
 }
 
 func (svc *ServiceClient) FindOne(ctx *gin.Context) {
-	routes.FineOne(ctx, svc.Client)
+	routes.FindOne(ctx, svc.Client)
 }
 
 func (svc *ServiceClient) CreateProduct(ctx *gin.Context) {
